@@ -8,6 +8,6 @@ export const TOP_BRANDS: GamingBrandData[] = [
     bonusText: 'Joga 10€ Ganha 100 Rodadas Grátis',
     pros: ['Levantamentos rápidos', 'Apoio ao cliente 24/7', 'Plataforma licenciada SRIJ'],
     features: ['Casino ao Vivo', 'Otimizado para Mobile'],
-    link: 'https://www.bwin.pt/pt/labelhost/login',
+    link: 'https://www.bwin.pt/',
   },
 ];

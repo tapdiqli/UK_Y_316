@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import Image from 'next/image';
 import { Star, StarHalf, ArrowRight } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { appendGclidToUrl, resolveGclid } from '@/lib/gclid';
 
 export interface GamingBrandData {
   id: string;
@@ -52,12 +53,9 @@ function StarRow({
 
 function ShowcaseContent({ index, brand }: GamingBrandShowcaseProps) {
   const searchParams = useSearchParams();
-  const gclid = searchParams.get('gclid');
+  const gclid = resolveGclid(searchParams.get('gclid'));
 
-  let finalLink = brand.link;
-  if (gclid) {
-    finalLink = brand.link + (brand.link.includes('?') ? '&' : '?') + 'gclid=' + gclid;
-  }
+  const finalLink = appendGclidToUrl(brand.link, gclid);
 
   const ratingOutOf10 = 10 - index * 0.1;
   const displayRating = (Math.floor((ratingOutOf10 / 2) * 10) / 10).toFixed(1);
