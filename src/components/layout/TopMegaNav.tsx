@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Menu, X, ChevronDown, ShieldAlert } from 'lucide-react';
-import { appendGclidToPath, usePersistedGclid } from '@/lib/gclid';
+import { resolveGclid } from '@/lib/gclid';
 
 const PLATFORM_LINKS = [
   { href: '/platforms/online-roulette', label: 'Roleta Online' },
@@ -17,8 +18,11 @@ function NavContent() {
   const [isOpen, setIsOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobilePlatformsOpen, setMobilePlatformsOpen] = useState(false);
-  const gclid = usePersistedGclid();
-  const withGclid = (path: string) => appendGclidToPath(path, gclid);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    resolveGclid(searchParams.get('gclid'));
+  }, [searchParams]);
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-[#050511]/90 backdrop-blur-md border-b border-[#0a0a1f]/50 gaming-glow">
@@ -26,7 +30,7 @@ function NavContent() {
         <div className="flex justify-between items-center h-20">
           
           <div className="flex-shrink-0 flex items-center">
-            <Link href={withGclid('/')} className="relative">
+            <Link href="/" className="relative">
               <Image 
                 src="/assets/logo.svg" 
                 alt="Logótipo Sorte Mestre" 
@@ -54,7 +58,7 @@ function NavContent() {
                   {PLATFORM_LINKS.map((link) => (
                     <Link
                       key={link.href}
-                      href={withGclid(link.href)}
+                      href={link.href}
                       className="text-gray-300 hover:text-white hover:translate-x-1 transition-all block font-montserrat font-semibold py-2"
                     >
                       {link.label}
@@ -64,16 +68,16 @@ function NavContent() {
               </div>
             </div>
 
-            <Link href={withGclid('/testimonials')} className="text-white hover:text-[#FF003C] transition-colors font-montserrat font-semibold">
+            <Link href="/testimonials" className="text-white hover:text-[#FF003C] transition-colors font-montserrat font-semibold">
               Testemunhos
             </Link>
-            <Link href={withGclid('/about')} className="text-white hover:text-[#0033FF] transition-colors font-montserrat font-semibold">
+            <Link href="/about" className="text-white hover:text-[#0033FF] transition-colors font-montserrat font-semibold">
               Sobre
             </Link>
-            <Link href={withGclid('/contact')} className="text-white hover:text-[#00F0FF] transition-colors font-montserrat font-semibold">
+            <Link href="/contact" className="text-white hover:text-[#00F0FF] transition-colors font-montserrat font-semibold">
               Contacto
             </Link>
-            <Link href={withGclid('/safe-play')} className="text-white hover:text-[#00F0FF] transition-colors font-montserrat font-semibold flex items-center gap-1">
+            <Link href="/safe-play" className="text-white hover:text-[#00F0FF] transition-colors font-montserrat font-semibold flex items-center gap-1">
               <ShieldAlert size={16} /> Jogo Seguro
             </Link>
           </div>
@@ -109,7 +113,7 @@ function NavContent() {
                 {PLATFORM_LINKS.map((link) => (
                   <Link
                     key={link.href}
-                    href={withGclid(link.href)}
+                    href={link.href}
                     onClick={() => setIsOpen(false)}
                     className="block text-gray-300 hover:text-white font-montserrat font-medium py-2 transition-colors"
                   >
@@ -119,16 +123,16 @@ function NavContent() {
               </div>
             )}
 
-            <Link href={withGclid('/testimonials')} onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
+            <Link href="/testimonials" onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
               Testemunhos
             </Link>
-            <Link href={withGclid('/about')} onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
+            <Link href="/about" onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
               Sobre
             </Link>
-            <Link href={withGclid('/contact')} onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
+            <Link href="/contact" onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
               Contacto
             </Link>
-            <Link href={withGclid('/safe-play')} onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
+            <Link href="/safe-play" onClick={() => setIsOpen(false)} className="block text-white font-montserrat font-semibold py-3">
               Jogo Seguro
             </Link>
           </div>
