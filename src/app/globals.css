@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gaming-bg: #050511;
+  --color-gaming-card: #0a0a1f;
+  --color-gaming-card-hover: #12122b;
+  --color-gaming-cyan: #00F0FF;
+  --color-gaming-pink: #FF003C;
+  --color-gaming-blue: #0033FF;
+  
+  --font-montserrat: var(--font-montserrat);
+  --font-poppins: var(--font-poppins);
+}
+
+:root {
+  --background: #050511;
+  --foreground: #ffffff;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-poppins), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.gaming-gradient-text {
+  background: linear-gradient(90deg, #00F0FF 0%, #FF003C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gaming-border-gradient {
+  position: relative;
+  background: #0a0a1f;
+  border-radius: 1rem;
+}
+
+.gaming-border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 1.1rem;
+  background: linear-gradient(45deg, #00F0FF, #FF003C, #0033FF);
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.gaming-border-gradient:hover::before {
+  opacity: 1;
+}
+
+.gaming-glow {
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.gaming-glow-pink {
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
+}
